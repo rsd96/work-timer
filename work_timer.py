@@ -7,7 +7,7 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 import sys
 import Util
 from LogWindow import LogWindow
-from Util import UI_DIR
+from Util import UI_DIR, resource_path
 
 class TimerWorker(QObject):
     finished = pyqtSignal(str)
@@ -164,7 +164,7 @@ class WorkTimer(QMainWindow):
 
     def saveLog(self, endTime):
         print(f"save log...{endTime}")
-        f = open("work_timer_log.csv", "a")
+        f = open(resource_path("work_timer_log.csv"), "a")
         notes = self.etNotes.toPlainText().replace("\n","|")
         f.write(f'{self.today},{self.startedWorkAt},{Util.formatTimeHM(self.totalBreakTime)},{self.endedWorkAt},{Util.formatTimeHM(self.totalWorkTime)},{notes}\n')
         f.close()
