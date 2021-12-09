@@ -2,7 +2,7 @@ from pandas import DataFrame, read_csv
 from PyQt5 import uic, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QTableView, QPushButton, QHeaderView
-from Util import UI_DIR
+from Util import UI_DIR, resource_path
 
 
 class TableModel(QtCore.QAbstractTableModel):
@@ -48,7 +48,7 @@ class LogWindow(QDialog):
 
     def loadLog(self):
         try:
-            data = read_csv('work_timer_log.csv', header=None)
+            data = read_csv(resource_path("work_timer_log.csv"), header=None)
             data.columns = ['Date', 'Started Work At', 'Took Break For', 'Ended Work At', 'Total Work Time', 'Notes']
         except:
             data = DataFrame()
@@ -57,7 +57,7 @@ class LogWindow(QDialog):
         self.table.setModel(self.model)
 
     def clearLog(self):
-        open("work_timer_log.csv", "w+").close()
+        open(resource_path("work_timer_log.csv"), "w+").close()
         self.loadLog()
 
     def dismissLog(self):
